@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zomato Chronicles - Orders</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Orders</h1>
+    <!-- Add form for taking new orders -->
+    <div class="form-container">
+        <form class="form-group" action="{{ url_for('menu') }}" method="POST">
+                <!-- Form fields -->
+    
+            <label for="customer_name">Customer Name:</label>
+            <input type="text" id="customer_name" name="customer_name" required>
+            <label for="dish_ids">Dish IDs (comma-separated):</label>
+            <input type="text" id="dish_ids" name="dish_ids" required>
+            <input type="submit" value="Place Order">
+        </form> 
+    </div>
+    <!-- Display the orders -->
+    <ul class="order-list">
+        {% for order in orders %}
+        <li>Order ID: {{ order.order_id }}</li>
+        <li>Customer Name: {{ order.customer_name }}</li>
+        <li>Dish IDs: {{ order.dish_ids|join(', ') }}</li>
+        <li>Status: {{ order.status }}</li>
+        <form class="update-form" action="{{ url_for('orders') }}" method="GET">
+            <input type="hidden" name="order_id" value="{{ order.order_id }}">
+            <label for="status">Update Status:</label>
+            <select id="status" name="status">
+                <option value="received">Received</option>
+                <option value="preparing">Preparing</option>
+                <option value="ready for pickup">Ready for Pickup</option>
+                <option value="delivered">Delivered</option>
+            </select>
+            <input type="submit" value="Update">
+        </form>
+        <hr>
+        {% endfor %}
+    </ul>
+</body>
+</html>

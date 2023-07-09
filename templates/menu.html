@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Zomato Chronicles - Menu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Menu</h1>
+    <!-- Add form for adding new dishes -->
+    <div class="form-container">
+        <form class="form-group" action="{{ url_for('menu') }}" method="POST">
+            <!-- Form fields -->
+    
+        <label for="dish_name">Dish Name:</label>
+        <input type="text" id="dish_name" name="dish_name" required>
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" required>
+        <label for="availability">Availability:</label>
+        <input type="checkbox" id="availability" name="availability" value="available">
+        <input type="submit" value="Add Dish">
+        </form>
+    </div>
+    <!-- Display the menu -->
+    <ul>
+        {% for dish in menu %}
+        <li>{{ dish.dish_name }} - {{ dish.price }} - {{ dish.availability }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
